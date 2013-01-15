@@ -15,4 +15,4 @@ java -jar vendors\google-closure-compiler\compiler.jar ^
 xcopy "src/images" "build/images" /I /E /Y
 copy "src\WeavverBrowserPhone.swf" "build\WeavverBrowserPhone.swf"
 copy "src\WeavverPhone.tpl.html" "build\WeavverPhone.tpl.html"
-copy "src\jquery-ui-1.9.2.custom.min.css" "build\jquery-ui.1.9.2.custom.min.css"
+copy "src\jquery-ui-1.9.2.custom.min.css" "build\jquery-ui-1.9.2.custom.min.css"

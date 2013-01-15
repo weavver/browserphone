@@ -47,7 +47,10 @@ function getBaseURL()
 $(document).ready(function () {
      var baseURL = getBaseURL();
      $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', baseurl + 'jquery-ui-1.9.2.custom.min.css'));
-     $('head').append($('<script type="text/javascript" />').attr('src', baseurl + 'swfobject.js'));
+	 if (typeof swfobject == 'undefined')
+	 {
+		  $('head').append($('<script type="text/javascript" />').attr('src', baseurl + 'swfobject.js'));
+	 }
      
      $.get(baseurl + 'WeavverPhone.tpl.html', function (data) {
           var telphoneLinks = $('a[href^="tel:"], a[href^="sip:"]');
