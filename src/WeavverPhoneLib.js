@@ -163,7 +163,7 @@ function showPhone(elemId)
      var baseurl = getBaseURL();
      if ($('#phonewidget').data("flashLoaded") != "false")
      {
-          var swfURL = baseurl + "freeswitch.swf";
+          var swfURL = baseurl + "WeavverBrowserPhone.swf";
           if (typeof weavverPhoneOptions == 'undefined') {
                weavverPhoneOptions = {
                     rtmp_url: 'rtmp://205.134.225.23/phone'
