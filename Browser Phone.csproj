@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2912AD5D-8553-49E6-BB1A-AEC8AB872D7D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Browser_Phone</RootNamespace>
+    <AssemblyName>Browser Phone</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="units\CreateRelease.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BuildRelease.bat" />
+    <None Include="BuildWeavverPhoneJs.bat" />
+    <None Include="README.md" />
+    <None Include="src\build.sh" />
+    <None Include="src\com\adobe\air\crypto\EncryptionKeyGenerator.as" />
+    <None Include="src\com\adobe\air\filesystem\events\FileMonitorEvent.as" />
+    <None Include="src\com\adobe\air\filesystem\FileMonitor.as" />
+    <None Include="src\com\adobe\air\filesystem\FileUtil.as" />
+    <None Include="src\com\adobe\air\filesystem\VolumeMonitor.as" />
+    <None Include="src\com\adobe\air\logging\FileTarget.as" />
+    <None Include="src\com\adobe\air\net\events\ResourceCacheEvent.as" />
+    <None Include="src\com\adobe\air\net\ResourceCache.as" />
+    <None Include="src\com\adobe\crypto\HMAC.as" />
+    <None Include="src\com\adobe\crypto\IntUtil.as" />
+    <None Include="src\com\adobe\crypto\MD5.as" />
+    <None Include="src\com\adobe\crypto\MD5Stream.as" />
+    <None Include="src\com\adobe\crypto\SHA1.as" />
+    <None Include="src\com\adobe\crypto\SHA224.as" />
+    <None Include="src\com\adobe\crypto\SHA256.as" />
+    <None Include="src\com\adobe\crypto\WSSEUsernameToken.as" />
+    <None Include="src\com\adobe\errors\IllegalStateError.as" />
+    <None Include="src\com\adobe\fileformats\vcard\Address.as" />
+    <None Include="src\com\adobe\fileformats\vcard\Email.as" />
+    <None Include="src\com\adobe\fileformats\vcard\Phone.as" />
+    <None Include="src\com\adobe\fileformats\vcard\VCard.as" />
+    <None Include="src\com\adobe\fileformats\vcard\VCardParser.as" />
+    <None Include="src\com\adobe\images\BitString.as" />
+    <None Include="src\com\adobe\images\JPGEncoder.as" />
+    <None Include="src\com\adobe\images\PNGEncoder.as" />
+    <None Include="src\com\adobe\net\DynamicURLLoader.as" />
+    <None Include="src\com\adobe\net\IURIResolver.as" />
+    <None Include="src\com\adobe\net\MimeTypeMap.as" />
+    <None Include="src\com\adobe\net\proxies\RFC2817Socket.as" />
+    <None Include="src\com\adobe\net\URI.as" />
+    <None Include="src\com\adobe\net\URIEncodingBitmap.as" />
+    <None Include="src\com\adobe\protocols\dict\Database.as" />
+    <None Include="src\com\adobe\protocols\dict\Definition.as" />
+    <None Include="src\com\adobe\protocols\dict\Dict.as" />
+    <None Include="src\com\adobe\protocols\dict\DictionaryServer.as" />
+    <None Include="src\com\adobe\protocols\dict\events\ConnectedEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\events\DatabaseEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\events\DefinitionEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\events\DefinitionHeaderEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\events\DictionaryServerEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\events\DisconnectedEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\events\ErrorEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\events\MatchEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\events\MatchStrategiesEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\events\NoMatchEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\MatchStrategy.as" />
+    <None Include="src\com\adobe\protocols\dict\Response.as" />
+    <None Include="src\com\adobe\protocols\dict\util\CompleteResponseEvent.as" />
+    <None Include="src\com\adobe\protocols\dict\util\SocketHelper.as" />
+    <None Include="src\com\adobe\serialization\json\JSON.as" />
+    <None Include="src\com\adobe\serialization\json\JSONDecoder.as" />
+    <None Include="src\com\adobe\serialization\json\JSONEncoder.as" />
+    <None Include="src\com\adobe\serialization\json\JSONParseError.as" />
+    <None Include="src\com\adobe\serialization\json\JSONToken.as" />
+    <None Include="src\com\adobe\serialization\json\JSONTokenizer.as" />
+    <None Include="src\com\adobe\serialization\json\JSONTokenType.as" />
+    <None Include="src\com\adobe\utils\ArrayUtil.as" />
+    <None Include="src\com\adobe\utils\DateUtil.as" />
+    <None Include="src\com\adobe\utils\DictionaryUtil.as" />
+    <None Include="src\com\adobe\utils\IntUtil.as" />
+    <None Include="src\com\adobe\utils\NumberFormatter.as" />
+    <None Include="src\com\adobe\utils\StringUtil.as" />
+    <None Include="src\com\adobe\utils\XMLUtil.as" />
+    <None Include="src\com\adobe\webapis\events\ServiceEvent.as" />
+    <None Include="src\com\adobe\webapis\ServiceBase.as" />
+    <None Include="src\com\adobe\webapis\URLLoaderBase.as" />
+    <None Include="src\freeswitch.mxml" />
+    <None Include="src\web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\freeswitch.html" />
+    <Content Include="src\images\Phone.png" />
+    <Content Include="src\images\PhoneOver.png" />
+    <Content Include="src\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="src\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="src\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="src\images\ui-icons_222222_256x240.png" />
+    <Content Include="src\images\ui-icons_454545_256x240.png" />
+    <Content Include="src\jquery-1.8.3.min.js" />
+    <Content Include="src\jquery-ui-1.9.1.flick.min.css" />
+    <Content Include="src\jquery-ui-1.9.2.custom.css" />
+    <Content Include="src\jquery-ui-1.9.2.custom.min.css" />
+    <Content Include="src\jquery-ui-1.9.2.custom.min.js" />
+    <Content Include="src\jquery.tmpl.js" />
+    <Content Include="src\Sound_of_phone_ringing2.mp3" />
+    <Content Include="src\swfobject.js" />
+    <Content Include="src\TestWithoutWebHost.html" />
+    <Content Include="src\warning-icon.png" />
+    <Content Include="src\WeavverBrowserPhone.swf" />
+    <Content Include="src\WeavverPhone.html" />
+    <Content Include="src\WeavverPhone.tpl.html" />
+    <Content Include="src\WeavverPhoneLib.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
