@@ -14,6 +14,13 @@ if (typeof String.prototype.endsWith != 'function')
      };
 }
 
+jQuery.fn.center = function () {
+     this.css("position", "absolute");
+     this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
+     this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+     return this;
+}
+
 // gets the base url path to where this script is hosted
 function getBaseURL()
 {
@@ -45,13 +52,14 @@ function getBaseURL()
 }
 
 $(document).ready(function () {
+
+
      var baseURL = getBaseURL();
      $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', baseurl + 'jquery-ui-1.9.2.custom.min.css'));
-	 if (typeof swfobject == 'undefined')
-	 {
-		  $('head').append($('<script type="text/javascript" />').attr('src', baseurl + 'swfobject.js'));
-	 }
-     
+     if (typeof swfobject == 'undefined') {
+          $('head').append($('<script type="text/javascript" />').attr('src', baseurl + 'swfobject.js'));
+     }
+
      $.get(baseurl + 'WeavverPhone.tpl.html', function (data) {
           var telphoneLinks = $('a[href^="tel:"], a[href^="sip:"]');
           telphoneLinks.each(function () {
@@ -81,6 +89,10 @@ $(document).ready(function () {
 
           $("body").append(data);
 
+          $("#phonewidget_security").css('display', '');
+          $("#phonewidget_security").css('position', 'absolute');
+          $("#phonewidget_security").css('top', -10000);
+          $("#phonewidget_security").css('left', -10000);
           $("#startcall").hide();
           $("#hangupcall").hide();
           $("#phonewidget").dialog({ autoOpen: false, title: 'Browser Phone', resizable: false });
@@ -88,15 +100,15 @@ $(document).ready(function () {
           $("a", "#controls").button({ disabled: true });
 
           $("#phonewidget").dialog({
-               beforeClose: function (event, ui)
-               {
-                    if ($("#phonewidget").data("flashLoaded") == "true")
-                    {
+               beforeClose: function (event, ui) {
+                    if ($("#phonewidget").data("flashLoaded") == "true") {
                          hangupCall();
                     }
                     return true;
                }
           });
+
+
      });
 });
 
@@ -113,9 +125,8 @@ function getPseudoGuid()
      });
 }
 
-function onInit()
-{
-     $("#flash").attr("visibility", "none");
+function onInit() {
+
      var mics = eval($("#flash")[0].micList());
      var sources = $("#input_source");
      var current_mic = $("#flash")[0].getMic();
@@ -128,8 +139,35 @@ function onInit()
           var a = (i == current_mic) ? "selected" : "";
           sources.append("<option value='" + i + "' " + a + " >" + mics[i] + "</option");
      }
-     
+
      $('#phonewidget').data("flashLoaded", "true");
+
+}
+
+function showPhone(elemId) {
+     var baseurl = getBaseURL();
+     if ($('#phonewidget').data("flashLoaded") != "false") {
+          var params = { allowScriptAccess: 'always' };
+          var swfURL = baseurl + "WeavverBrowserPhone.swf";
+          if (typeof weavverPhoneOptions == 'undefined') {
+               weavverPhoneOptions = {
+                    rtmp_url: 'rtmp://205.134.225.23/phone'
+               };
+          }
+          swfobject.embedSWF(swfURL, "flash", "250", "150", "9.0.0", "expressInstall.swf", weavverPhoneOptions, params, [], embedSuccessful);
+     }
+     $('#phonewidget').dialog('open');
+     $("#timer").data("time", 0);
+     $("#timer").html("");
+     var telURI = $("#" + elemId).data('teluri');
+     var telNum = (telURI.startsWith("sip:")) ? telURI : findBaseName(telURI);
+     $("#startcall").data('telnum', telNum);
+
+     var clonedData = $("#" + elemId).clone(false);
+     clonedData.children("img").remove();
+
+     var actionText = getParameterByName(telURI, "ActionText") || clonedData.html(); //$("#" + elemId).html();
+     $("#startcall").html(actionText);
 }
 
 function onConnected(sessionid)
@@ -137,11 +175,45 @@ function onConnected(sessionid)
      $("#status").text("Ready");
      $("#status").hide();
      $("#startcall").show();
+
+     initializeMic();
 }
 
-function makeCall(number, account, options)
-{
-     if (!number)
+function initializeMic() {
+     try {
+          if ($("#flash")[0].isMuted()) {
+               alert('Please allow access to your microphone.');
+               showPrivacy();
+               return false;
+          }
+          return true;
+     } catch (err) {
+          alert('We could not initialize your microphone because: ' + err);
+          return false;
+     }
+}
+
+function showPrivacy() {
+     $("#modalOverlay").css('visibility', '');
+     $("#modalOverlay").show();
+     $("#phonewidget_security").center();
+     var flash = $("#flash");
+
+     flash[0].isMuted();
+     flash[0].showPrivacy();
+}
+
+function hidePrivacy() {
+     $('#phonewidget_security').css('top', -10000);
+     $('#phonewidget_security').css('left', -10000);
+     $("#modalOverlay").hide();
+}
+
+function makeCall(number, account, options) {
+     if (!initializeMic())
+          return;
+
+     if (!number)             
           number = $("#startcall").data('telnum');
      $("#controls").show();
      $("#phonewidget").dialog("option", "position", "center");
@@ -157,36 +229,10 @@ function onDebug(output)
      $(document).append(output);
 }
 
-var params = {
-     allowScriptAccess: 'always'
-};
+function embedSuccessful() {
+     // alert('Phone embedded!');
 
-function showPhone(elemId)
-{
-     var baseurl = getBaseURL();
-     if ($('#phonewidget').data("flashLoaded") != "false")
-     {
-          var swfURL = baseurl + "WeavverBrowserPhone.swf";
-          if (typeof weavverPhoneOptions == 'undefined') {
-               weavverPhoneOptions = {
-                    rtmp_url: 'rtmp://205.134.225.23/phone'
-               };
-          }
-          swfobject.embedSWF(swfURL, "flash", "10", "10", "9.0.0", "expressInstall.swf", weavverPhoneOptions, params, []);
-          //$("#flash").hide();
-     }
-     $('#phonewidget').dialog('open');
-     $("#timer").data("time", 0);
-     $("#timer").html("");
-     var telURI = $("#" + elemId).data('teluri');
-     var telNum = (telURI.startsWith("sip:")) ? telURI : findBaseName(telURI);
-     $("#startcall").data('telnum', telNum);
-
-     var clonedData = $("#" + elemId).clone(false);
-     clonedData.children("img").remove();
-
-     var actionText = getParameterByName(telURI, "ActionText") || clonedData.html(); //$("#" + elemId).html();
-     $("#startcall").html(actionText);
+     //$("#flash").hide();
 }
 
 function onCallState(uuid, state)
